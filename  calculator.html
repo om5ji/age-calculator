@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            background-color: #00447c;
+            color: white;
+            padding: 15px 20px;
+            max-width: 960px;
+            margin: 0 auto;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .container {
+            display: flex;
+            max-width: 960px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .main-content {
+            flex: 65%;
+            padding-right: 30px;
+        }
+        .sidebar {
+            flex: 35%;
+            padding-left: 20px;
+            border-left: 1px solid #ddd;
+        }
+        h2 { color: #00447c; }
+        
+        /* Calculator Form Styles */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="date"] {
+            padding: 8px;
+            width: 100%;
+            max-width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .calc-btn {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .calc-btn:hover { background-color: #004494; }
+        
+        /* Result Area */
+        #result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e6f2ff;
+            border-left: 5px solid #0056b3;
+            display: none;
+        }
+        .age-main { font-size: 24px; font-weight: bold; color: #333; }
+        
+        /* Native Ad Space Styles (Right Column) */
+        .ad-container {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .ad-title { color: #2e7d32; font-weight: bold; font-size: 18px; margin-bottom: 10px; }
+        .ad-input { width: 90%; padding: 8px; margin: 10px 0; border: 1px solid #ccc; }
+        .ad-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .ad-btn:hover { background-color: #45a049; }
+        .ad-label { font-size: 12px; color: #888; text-align: right; margin-bottom: 5px; }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .main-content { padding-right: 0; }
+            .sidebar { padding-left: 0; border-left: none; margin-top: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        Calculator.net <span style="font-size: 14px; font-weight: normal; margin-left: 20px;">Age Calculator</span>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <h2>Age Calculator</h2>
+            <p>Calculate your exact age in years, months, and days.</p>
+            
+            <div class="form-group">
+                <label>Date of Birth</label>
+                <input type="date" id="dob" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Age at the Date of</label>
+                <input type="date" id="targetDate">
+            </div>
+            
+            <button class="calc-btn" onclick="calculateAge()">Calculate</button>
+
+            <div id="result-box">
+                <div class="age-main" id="age-result"></div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-container">
+                <div class="ad-title">High Paying Jobs in India!</div>
+                <p style="font-size: 14px; margin: 5px 0;">Expected Salary (₹):</p>
+                <input type="text" class="ad-input" placeholder="e.g. ₹30,000">
+                <p style="font-size: 14px; margin: 5px 0;">Select Job Type:</p>
+                <div style="display: flex; gap: 5px; justify-content: center; margin-bottom: 15px;">
+                    <span style="background: #eee; padding: 5px 10px; font-size: 12px; border-radius: 3px;">Full Time</span>
+                    <span style="background: #2e7d32; color: white; padding: 5px 10px; font-size: 12px; border-radius: 3px;">Work From Home</span>
+                </div>
+                <button class="ad-btn">APPLY NOW</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set today's date as default in the second input
+        document.getElementById('targetDate').valueAsDate = new Date();
+
+        function calculateAge() {
+            let dobInput = document.getElementById('dob').value;
+            let targetInput = document.getElementById('targetDate').value;
+            
+            if(!dobInput) {
+                alert("Please select your Date of Birth!");
+                return;
+            }
+
+            let dob = new Date(dobInput);
+            let target = new Date(targetInput);
+
+            let years = target.getFullYear() - dob.getFullYear();
+            let months = target.getMonth() - dob.getMonth();
+            let days = target.getDate() - dob.getDate();
+
+            if (days < 0) {
+                months--;
+                // Get days in previous month
+                let prevMonth = new Date(target.getFullYear(), target.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            let resultBox = document.getElementById('result-box');
+            let resultText = document.getElementById('age-result');
+            
+            if (target < dob) {
+                resultText.innerHTML = "Target date cannot be before Date of Birth!";
+                resultText.style.color = "red";
+            } else {
+                resultText.innerHTML = `Age: ${years} years, ${months} months, ${days} days`;
+                resultText.style.color = "#333";
+            }
+            
+            resultBox.style.display = "block";
+        }
+    </script>
+</body>
+</html>
