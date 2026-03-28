@@ -7,160 +7,278 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            background-color: #ffffff;
+            color: #000000;
         }
-        .header {
+        a { text-decoration: none; color: #316496; }
+        a:hover { text-decoration: underline; }
+        
+        /* Top Navigation */
+        .top-bar {
             background-color: #00447c;
             color: white;
-            padding: 15px 20px;
-            max-width: 960px;
-            margin: 0 auto;
-            font-size: 24px;
-            font-weight: bold;
+            padding: 10px 0;
         }
-        .container {
+        .top-container {
+            width: 95%;
+            max-width: 980px;
+            margin: 0 auto;
             display: flex;
-            max-width: 960px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            justify-content: space-between;
+            align-items: center;
         }
-        .main-content {
-            flex: 65%;
-            padding-right: 30px;
+        .logo { font-size: 28px; font-weight: bold; }
+        .logo span { color: #88c057; }
+        .nav-links a {
+            color: white;
+            margin-left: 15px;
+            font-size: 14px;
+            text-transform: uppercase;
         }
-        .sidebar {
-            flex: 35%;
-            padding-left: 20px;
-            border-left: 1px solid #ddd;
+        .nav-links a.active {
+            background-color: #7cb342;
+            padding: 5px 10px;
+            border-radius: 2px;
         }
-        h2 { color: #00447c; }
-        
-        /* Calculator Form Styles */
-        .form-group {
-            margin-bottom: 15px;
+        .sign-in { text-align: right; font-size: 12px; margin-bottom: 5px; }
+        .sign-in a { color: #ccc; }
+
+        /* Main Layout */
+        .content-wrapper {
+            width: 95%;
+            max-width: 980px;
+            margin: 15px auto;
+            display: flex;
+            gap: 20px;
         }
-        label { display: block; font-weight: bold; margin-bottom: 5px; }
-        input[type="date"] {
-            padding: 8px;
-            width: 100%;
-            max-width: 200px;
+        .left-col { flex: 70%; }
+        .right-col { flex: 30%; }
+
+        /* Breadcrumb & Headings */
+        .breadcrumb { font-size: 12px; color: #666; margin-bottom: 10px; }
+        h1 { color: #00447c; font-size: 26px; margin-top: 0; margin-bottom: 10px; }
+        .intro-text { font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
+
+        /* Calculator Panel */
+        .calc-panel {
+            background-color: #f2f2f2;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .panel-header {
+            background-color: #316496;
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .panel-body { padding: 20px; text-align: center; }
+        .form-row { margin-bottom: 15px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .form-row label { width: 130px; text-align: right; font-size: 14px; }
+        select, input[type="text"] {
+            padding: 4px;
+            border: 1px solid #999;
+            font-size: 14px;
         }
         .calc-btn {
-            background-color: #0056b3;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-        .calc-btn:hover { background-color: #004494; }
-        
-        /* Result Area */
-        #result-box {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e6f2ff;
-            border-left: 5px solid #0056b3;
-            display: none;
-        }
-        .age-main { font-size: 24px; font-weight: bold; color: #333; }
-        
-        /* Native Ad Space Styles (Right Column) */
-        .ad-container {
-            border: 1px solid #ddd;
-            padding: 15px;
-            text-align: center;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .ad-title { color: #2e7d32; font-weight: bold; font-size: 18px; margin-bottom: 10px; }
-        .ad-input { width: 90%; padding: 8px; margin: 10px 0; border: 1px solid #ccc; }
-        .ad-btn {
             background-color: #4CAF50;
             color: white;
-            padding: 10px;
-            width: 100%;
             border: none;
+            padding: 8px 25px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            border-radius: 3px;
+            margin-top: 10px;
         }
-        .ad-btn:hover { background-color: #45a049; }
-        .ad-label { font-size: 12px; color: #888; text-align: right; margin-bottom: 5px; }
+        .calc-btn:hover { background-color: #45a049; }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .container { flex-direction: column; }
-            .main-content { padding-right: 0; }
-            .sidebar { padding-left: 0; border-left: none; margin-top: 30px; }
+        /* Results Area */
+        #result-area { display: none; margin-bottom: 20px; }
+        .result-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            font-size: 18px;
+            font-weight: bold;
         }
+        .result-content { font-size: 18px; padding: 15px 0; line-height: 1.6; }
+        .result-content b { font-size: 22px; }
+
+        /* Related Section */
+        .related-box { margin-top: 20px; margin-bottom: 20px; }
+        .related-title { background: #eee; display: inline-block; padding: 2px 8px; font-weight: bold; font-size: 14px; border: 1px solid #ccc; border-bottom: none; }
+        .related-links { background: #f9f9f9; padding: 10px; border: 1px solid #ccc; display: flex; gap: 10px; }
+        .related-links a { background: #316496; color: white; padding: 5px 10px; font-size: 14px; }
+
+        /* Article Text */
+        .article-text { font-size: 14px; line-height: 1.6; color: #333; }
+        .article-text p { margin-bottom: 15px; }
+
+        /* Right Sidebar Styling */
+        .search-box { display: flex; margin-bottom: 15px; }
+        .search-box input { flex: 1; padding: 5px; border: 1px solid #888; }
+        .search-box button { background: #316496; color: white; border: none; padding: 5px 15px; cursor: pointer; }
+        
+        .sidebar-menu { border: 1px solid #ccc; margin-bottom: 20px; }
+        .sidebar-header { background-color: #316496; color: white; padding: 8px 10px; font-size: 16px; font-weight: bold; }
+        .sidebar-content { padding: 10px; font-size: 13px; display: flex; justify-content: space-between; }
+        .sidebar-content ul { list-style: none; padding: 0; margin: 0; width: 48%; line-height: 2; }
+        .sidebar-footer { background: #eee; text-align: center; padding: 5px; font-size: 12px; border-top: 1px solid #ccc; }
+
+        /* Footer */
+        .site-footer { text-align: center; font-size: 12px; color: #666; margin-top: 40px; padding: 20px 0; border-top: 1px solid #ccc; }
+        .site-footer a { color: #666; margin: 0 5px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        Calculator.net <span style="font-size: 14px; font-weight: normal; margin-left: 20px;">Age Calculator</span>
+    <div class="top-bar">
+        <div class="top-container" style="display: block;">
+            <div class="sign-in"><a href="#">sign in</a></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                <div class="logo">Calculator<span>.net</span></div>
+                <div class="nav-links">
+                    <a href="#">FINANCIAL</a>
+                    <a href="#">FITNESS & HEALTH</a>
+                    <a href="#">MATH</a>
+                    <a href="#" class="active">OTHER</a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="container">
-        <div class="main-content">
-            <h2>Age Calculator</h2>
-            <p>Calculate your exact age in years, months, and days.</p>
+    <div class="content-wrapper">
+        
+        <div class="left-col">
+            <div class="breadcrumb"><a href="#">home</a> / <a href="#">other</a> / age calculator</div>
             
-            <div class="form-group">
-                <label>Date of Birth</label>
-                <input type="date" id="dob" required>
-            </div>
-            
-            <div class="form-group">
-                <label>Age at the Date of</label>
-                <input type="date" id="targetDate">
-            </div>
-            
-            <button class="calc-btn" onclick="calculateAge()">Calculate</button>
+            <h1>Age Calculator</h1>
+            <p class="intro-text">The Age Calculator can determine the age or interval between two dates. The calculated age will be displayed in years, months, weeks, days, hours, minutes, and seconds.</p>
 
-            <div id="result-box">
-                <div class="age-main" id="age-result"></div>
+            <div id="result-area">
+                <div class="result-header">Result</div>
+                <div class="result-content" id="calc-result"></div>
             </div>
-        </div>
 
-        <div class="sidebar">
-            <div class="ad-label">Advertisement</div>
-            <div class="ad-container">
-                <div class="ad-title">High Paying Jobs in India!</div>
-                <p style="font-size: 14px; margin: 5px 0;">Expected Salary (₹):</p>
-                <input type="text" class="ad-input" placeholder="e.g. ₹30,000">
-                <p style="font-size: 14px; margin: 5px 0;">Select Job Type:</p>
-                <div style="display: flex; gap: 5px; justify-content: center; margin-bottom: 15px;">
-                    <span style="background: #eee; padding: 5px 10px; font-size: 12px; border-radius: 3px;">Full Time</span>
-                    <span style="background: #2e7d32; color: white; padding: 5px 10px; font-size: 12px; border-radius: 3px;">Work From Home</span>
+            <div class="calc-panel">
+                <div class="panel-header">Modify the values and click the Calculate button to use</div>
+                <div class="panel-body">
+                    <div class="form-row">
+                        <label>Date of Birth</label>
+                        <select id="b-month">
+                            <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option>
+                            <option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option>
+                            <option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
+                        </select>
+                        <select id="b-day"></select>
+                        <input type="text" id="b-year" value="2000" size="5">
+                    </div>
+                    <div class="form-row">
+                        <label>Age at the Date of</label>
+                        <select id="t-month">
+                            <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option>
+                            <option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option>
+                            <option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
+                        </select>
+                        <select id="t-day"></select>
+                        <input type="text" id="t-year" size="5">
+                    </div>
+                    <button class="calc-btn" onclick="calculateExactAge()">Calculate ▶</button>
                 </div>
-                <button class="ad-btn">APPLY NOW</button>
+            </div>
+
+            <div class="related-box">
+                <div class="related-title">Related</div>
+                <div class="related-links">
+                    <a href="#">Date Calculator</a>
+                    <a href="#">Time Calculator</a>
+                </div>
+            </div>
+
+            <div class="article-text">
+                <p>The age of a person can be counted differently in different cultures. This calculator is based on the most common age system. In this system, age increases on a person's birthday. For example, the age of a person who has lived for 3 years and 11 months is 3, and their age will increase to 4 on their next birthday one month later. Most western countries use this age system.</p>
+                <p>In some cultures, age is expressed by counting years with or without including the current year. For example, a person who is twenty years old is the same age as another person who is in their twenty-first year of life. In one of the traditional Chinese age systems, people are born at age 1 and their age increases up at the Traditional Chinese New Year rather than their birthday. For example, if one baby is born just one day before the Traditional Chinese New Year, 2 days later, the baby will be 2 even though he/she is only 2 days old.</p>
+                <p>In some situations, the months and day result of this age calculator may be confusing, especially when the starting date is the end of a month. For example, we count Feb. 20 to Mar. 20 to be one month. However, there are two ways to calculate the age from Feb. 28, 2022 to Mar. 31, 2022. If we consider Feb. 28 to Mar. 28 to be one month, then the result is one month and 3 days. If we consider both Feb. 28 and Mar. 31 as the end of the month, then the result is one month. Both calculation results are reasonable. Similar situations exist for dates like Apr. 30 to May 31, May 30 to June 30, etc. The confusion comes from the uneven number of days in different months. In our calculations, we use the former method.</p>
             </div>
         </div>
+
+        <div class="right-col">
+            <div class="search-box">
+                <input type="text">
+                <button>Search</button>
+            </div>
+
+            <div class="sidebar-menu">
+                <div class="sidebar-header">Other Calculators</div>
+                <div class="sidebar-content">
+                    <ul>
+                        <li><a href="#">Age</a></li>
+                        <li><a href="#">Time</a></li>
+                        <li><a href="#">GPA</a></li>
+                        <li><a href="#">Height</a></li>
+                        <li><a href="#">IP Subnet</a></li>
+                        <li><a href="#">Password Generator</a></li>
+                        <li><a href="#">Conversion</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">Date</a></li>
+                        <li><a href="#">Hours</a></li>
+                        <li><a href="#">Grade</a></li>
+                        <li><a href="#">Concrete</a></li>
+                        <li><a href="#">Bra Size</a></li>
+                        <li><a href="#">Dice Roller</a></li>
+                        <li><a href="#">More Other Calculators</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-footer">
+                    <a href="#">Financial</a> | <a href="#">Fitness and Health</a> | <a href="#">Math</a> | <a href="#">Other</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="site-footer">
+        <a href="#">about us</a> | <a href="#">sitemap</a> | <a href="#">terms of use</a> | <a href="#">privacy policy</a> &nbsp; © 2008 - 2026 calculator.net<br><br>
+        <a href="#">Financial</a> | <a href="#">Fitness & Health</a> | <a href="#">Math</a> | <a href="#">Other</a>
     </div>
 
     <script>
-        // Set today's date as default in the second input
-        document.getElementById('targetDate').valueAsDate = new Date();
+        // Populate days (1-31) in dropdowns
+        let bDayHtml = '', tDayHtml = '';
+        for(let i=1; i<=31; i++) {
+            bDayHtml += `<option value="${i}">${i}</option>`;
+            tDayHtml += `<option value="${i}">${i}</option>`;
+        }
+        document.getElementById('b-day').innerHTML = bDayHtml;
+        document.getElementById('t-day').innerHTML = tDayHtml;
 
-        function calculateAge() {
-            let dobInput = document.getElementById('dob').value;
-            let targetInput = document.getElementById('targetDate').value;
+        // Set Target Date to Today
+        let today = new Date();
+        document.getElementById('t-month').value = today.getMonth();
+        document.getElementById('t-day').value = today.getDate();
+        document.getElementById('t-year').value = today.getFullYear();
+
+        function calculateExactAge() {
+            let bMonth = parseInt(document.getElementById('b-month').value);
+            let bDay = parseInt(document.getElementById('b-day').value);
+            let bYear = parseInt(document.getElementById('b-year').value);
             
-            if(!dobInput) {
-                alert("Please select your Date of Birth!");
+            let tMonth = parseInt(document.getElementById('t-month').value);
+            let tDay = parseInt(document.getElementById('t-day').value);
+            let tYear = parseInt(document.getElementById('t-year').value);
+
+            let dob = new Date(bYear, bMonth, bDay);
+            let target = new Date(tYear, tMonth, tDay);
+
+            if (target < dob) {
+                document.getElementById('calc-result').innerHTML = "<span style='color:red;'>Target date must be after Date of Birth!</span>";
+                document.getElementById('result-area').style.display = 'block';
                 return;
             }
-
-            let dob = new Date(dobInput);
-            let target = new Date(targetInput);
 
             let years = target.getFullYear() - dob.getFullYear();
             let months = target.getMonth() - dob.getMonth();
@@ -168,7 +286,6 @@
 
             if (days < 0) {
                 months--;
-                // Get days in previous month
                 let prevMonth = new Date(target.getFullYear(), target.getMonth(), 0);
                 days += prevMonth.getDate();
             }
@@ -177,18 +294,13 @@
                 months += 12;
             }
 
-            let resultBox = document.getElementById('result-box');
-            let resultText = document.getElementById('age-result');
-            
-            if (target < dob) {
-                resultText.innerHTML = "Target date cannot be before Date of Birth!";
-                resultText.style.color = "red";
-            } else {
-                resultText.innerHTML = `Age: ${years} years, ${months} months, ${days} days`;
-                resultText.style.color = "#333";
-            }
-            
-            resultBox.style.display = "block";
+            // Display in the exact format of calculator.net
+            let htmlStr = `<b>Age:</b><br>`;
+            htmlStr += `${years} years ${months} months ${days} days<br>`;
+            htmlStr += `or ${years * 12 + months} months ${days} days<br>`;
+
+            document.getElementById('calc-result').innerHTML = htmlStr;
+            document.getElementById('result-area').style.display = 'block';
         }
     </script>
 </body>
