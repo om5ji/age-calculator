@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator</title>
+    <title>Age Calculator - om5ji</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -172,11 +172,11 @@
         .site-footer a { color: #666; margin: 0 5px; }
 
         /* =========================================
-           MOBILE RESPONSIVE FIXES (मोबाइल के लिए)
+           MOBILE RESPONSIVE FIXES 
            ========================================= */
         @media (max-width: 768px) {
             .content-wrapper {
-                flex-direction: column; /* दोनों कॉलम को ऊपर-नीचे कर देगा */
+                flex-direction: column; 
             }
             .top-container {
                 flex-direction: column;
@@ -191,7 +191,7 @@
                 margin-left: 0;
             }
             .form-row {
-                flex-direction: column; /* फॉर्म के बॉक्स नीचे कर देगा */
+                flex-direction: column; 
                 align-items: flex-start;
                 gap: 5px;
             }
@@ -200,7 +200,7 @@
                 width: 100%;
             }
             .calendar-comparison {
-                flex-direction: column; /* कैलेंडर्स को भी स्टैक कर देगा */
+                flex-direction: column; 
                 align-items: center;
             }
         }
@@ -211,7 +211,7 @@
     <div class="top-bar">
         <div class="top-container">
             <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
-                <div class="logo">Calculator<span>.net</span></div>
+                <div class="logo">om5ji<span>.github.io</span></div>
                 <div class="sign-in"><a href="#">sign in</a></div>
             </div>
             <div class="nav-links">
@@ -306,132 +306,3 @@
                     <ul>
                         <li><a href="#">Date</a></li>
                         <li><a href="#">Hours</a></li>
-                        <li><a href="#">Grade</a></li>
-                        <li><a href="#">Concrete</a></li>
-                        <li><a href="#">Bra Size</a></li>
-                        <li><a href="#">Dice Roller</a></li>
-                        <li><a href="#">More Other Calculators</a></li>
-                    </ul>
-                </div>
-                <div class="sidebar-footer">
-                    <a href="#">Financial</a> | <a href="#">Fitness and Health</a> | <a href="#">Math</a> | <a href="#">Other</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="site-footer">
-        <a href="#">about us</a> | <a href="#">sitemap</a> | <a href="#">terms of use</a> | <a href="#">privacy policy</a> &nbsp; © 2008 - 2026 calculator.net<br><br>
-        <a href="#">Financial</a> | <a href="#">Fitness & Health</a> | <a href="#">Math</a> | <a href="#">Other</a>
-    </div>
-
-    <script>
-        const MONTH_NAMES_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const MONTH_NAMES_FULL = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const DAY_NAMES_SHORT = ["S", "M", "T", "W", "Th", "F", "Sat"];
-
-        let bDayHtml = '', tDayHtml = '';
-        for(let i=1; i<=31; i++) {
-            bDayHtml += `<option value="${i}">${i}</option>`;
-            tDayHtml += `<option value="${i}">${i}</option>`;
-        }
-        document.getElementById('b-day').innerHTML = bDayHtml;
-        document.getElementById('t-day').innerHTML = tDayHtml;
-
-        let today = new Date();
-        document.getElementById('t-month').value = today.getMonth();
-        document.getElementById('t-day').value = today.getDate();
-        document.getElementById('t-year').value = today.getFullYear();
-
-        function formatWithCommas(num) {
-            return num.toLocaleString('en-IN');
-        }
-
-        function generateCalendarHTML(year, month, highlightDay) {
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const firstDayOfMonth = new Date(year, month, 1).getDay();
-
-            let htmlStr = `<div class="calendar-container">`;
-            htmlStr += `<div class="calendar-title">${MONTH_NAMES_FULL[month]} ${year}</div>`;
-            htmlStr += `<div class="calendar-grid-header">${DAY_NAMES_SHORT.join(' ')}</div>`;
-            htmlStr += `<div class="calendar-grid">`;
-
-            for (let i = 0; i < firstDayOfMonth; i++) {
-                htmlStr += `<div class="calendar-cell"></div>`;
-            }
-
-            for (let i = 1; i <= daysInMonth; i++) {
-                let cellClass = (i === highlightDay) ? 'calendar-cell highlight' : 'calendar-cell';
-                htmlStr += `<div class="${cellClass}">${i}</div>`;
-            }
-
-            htmlStr += `</div></div>`;
-            return htmlStr;
-        }
-
-        function calculateExactAge() {
-            let bMonth = parseInt(document.getElementById('b-month').value);
-            let bDay = parseInt(document.getElementById('b-day').value);
-            let bYear = parseInt(document.getElementById('b-year').value);
-            
-            let tMonth = parseInt(document.getElementById('t-month').value);
-            let tDay = parseInt(document.getElementById('t-day').value);
-            let tYear = parseInt(document.getElementById('t-year').value);
-
-            document.getElementById('calc-panel-id').style.display = 'none';
-            document.getElementById('result-area').style.display = 'block';
-            let breakdownDiv = document.getElementById('age-breakdown-list');
-            let calendarDisplayDiv = document.getElementById('calendar-display');
-
-            let dob = new Date(bYear, bMonth, bDay);
-            let target = new Date(tYear, tMonth, tDay);
-
-            if (target < dob) {
-                breakdownDiv.innerHTML = "<span style='color:red;'>Target date must be after Date of Birth!</span>";
-                calendarDisplayDiv.innerHTML = "";
-                return;
-            }
-
-            let years = target.getFullYear() - dob.getFullYear();
-            let months = target.getMonth() - dob.getMonth();
-            let days = target.getDate() - dob.getDate();
-
-            if (days < 0) {
-                months--;
-                let prevMonth = new Date(target.getFullYear(), target.getMonth(), 0);
-                days += prevMonth.getDate();
-            }
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-
-            let totalDifferenceMs = target - dob;
-            let totalSeconds = Math.floor(totalDifferenceMs / 1000);
-            let totalMinutes = Math.floor(totalDifferenceMs / (1000 * 60));
-            let totalHours = Math.floor(totalDifferenceMs / (1000 * 60 * 60));
-            let totalDays = Math.floor(totalDifferenceMs / (1000 * 60 * 60 * 24));
-            let totalWeeks = Math.floor(totalDays / 7);
-            let remainingDaysForWeeks = totalDays % 7;
-            let totalMonths = years * 12 + months;
-
-            let resultHtml = `<b>Age:</b><br>`;
-            resultHtml += `${years} years ${months} months ${days} days<br>`;
-            resultHtml += `or ${formatWithCommas(totalMonths)} months ${days} days<br>`;
-            resultHtml += `or ${formatWithCommas(totalWeeks)} weeks ${remainingDaysForWeeks} days<br>`;
-            resultHtml += `or ${formatWithCommas(totalDays)} days<br>`;
-            resultHtml += `or ${formatWithCommas(totalHours)} hours<br>`;
-            resultHtml += `or ${formatWithCommas(totalMinutes)} minutes<br>`;
-            resultHtml += `or ${formatWithCommas(totalSeconds)} seconds`;
-
-            breakdownDiv.innerHTML = resultHtml;
-
-            let calendarsHtml = "";
-            calendarsHtml += generateCalendarHTML(bYear, bMonth, -1);
-            calendarsHtml += generateCalendarHTML(tYear, tMonth, tDay);
-
-            calendarDisplayDiv.innerHTML = calendarsHtml;
-        }
-    </script>
-</body>
-</html>
