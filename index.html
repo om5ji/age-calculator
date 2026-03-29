@@ -31,6 +31,10 @@
         }
         .logo { font-size: 28px; font-weight: bold; }
         .logo span { color: #88c057; }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+        }
         .nav-links a {
             color: white;
             margin-left: 15px;
@@ -51,10 +55,11 @@
             max-width: 980px;
             margin: 15px auto;
             display: flex;
+            flex-direction: row;
             gap: 20px;
         }
-        .left-col { flex: 70%; }
-        .right-col { flex: 30%; }
+        .left-col { flex: 70%; width: 100%; }
+        .right-col { flex: 30%; width: 100%; }
 
         /* Breadcrumb & Headings */
         .breadcrumb { font-size: 12px; color: #666; margin-bottom: 10px; }
@@ -96,7 +101,7 @@
         }
         .calc-btn:hover { background-color: #45a049; }
 
-        /* Results Area - structuring for perfections */
+        /* Results Area */
         #result-area { display: none; margin-bottom: 20px; }
         .result-header {
             background-color: #4CAF50;
@@ -106,10 +111,9 @@
             font-weight: bold;
         }
         .result-content { font-size: 14px; padding: 15px 0; line-height: 1.6; }
-        
         #calc-result b { font-size: 16px; color: #000; }
         
-        /* New Styles for Calendar Comparison */
+        /* Calendar Styles */
         .calendar-comparison {
             display: flex;
             justify-content: center;
@@ -142,21 +146,14 @@
             text-align: center;
             font-size: 11px;
         }
-        .calendar-cell {
-            padding: 2px 0;
-        }
-        .calendar-cell.highlight {
-            background-color: #ffeb3b;
-            font-weight: bold;
-        }
+        .calendar-cell { padding: 2px 0; }
+        .calendar-cell.highlight { background-color: #ffeb3b; font-weight: bold; }
 
-        /* Related Section */
+        /* Related Section & Article */
         .related-box { margin-top: 20px; margin-bottom: 20px; }
         .related-title { background: #eee; display: inline-block; padding: 2px 8px; font-weight: bold; font-size: 14px; border: 1px solid #ccc; border-bottom: none; }
         .related-links { background: #f9f9f9; padding: 10px; border: 1px solid #ccc; display: flex; gap: 10px; }
         .related-links a { background: #316496; color: white; padding: 5px 10px; font-size: 14px; }
-
-        /* Article Text */
         .article-text { font-size: 14px; line-height: 1.6; color: #333; }
         .article-text p { margin-bottom: 15px; }
 
@@ -164,7 +161,6 @@
         .search-box { display: flex; margin-bottom: 15px; }
         .search-box input { flex: 1; padding: 5px; border: 1px solid #888; }
         .search-box button { background: #316496; color: white; border: none; padding: 5px 15px; cursor: pointer; }
-        
         .sidebar-menu { border: 1px solid #ccc; margin-bottom: 20px; }
         .sidebar-header { background-color: #316496; color: white; padding: 8px 10px; font-size: 16px; font-weight: bold; }
         .sidebar-content { padding: 10px; font-size: 13px; display: flex; justify-content: space-between; }
@@ -174,21 +170,55 @@
         /* Footer */
         .site-footer { text-align: center; font-size: 12px; color: #666; margin-top: 40px; padding: 20px 0; border-top: 1px solid #ccc; }
         .site-footer a { color: #666; margin: 0 5px; }
+
+        /* =========================================
+           MOBILE RESPONSIVE FIXES (मोबाइल के लिए)
+           ========================================= */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column; /* दोनों कॉलम को ऊपर-नीचे कर देगा */
+            }
+            .top-container {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-left: 10px;
+            }
+            .nav-links {
+                margin-top: 10px;
+                gap: 10px;
+            }
+            .nav-links a {
+                margin-left: 0;
+            }
+            .form-row {
+                flex-direction: column; /* फॉर्म के बॉक्स नीचे कर देगा */
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .form-row label {
+                text-align: left;
+                width: 100%;
+            }
+            .calendar-comparison {
+                flex-direction: column; /* कैलेंडर्स को भी स्टैक कर देगा */
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        <div class="top-container" style="display: block;">
-            <div class="sign-in"><a href="#">sign in</a></div>
-            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+        <div class="top-container">
+            <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
                 <div class="logo">Calculator<span>.net</span></div>
-                <div class="nav-links">
-                    <a href="#">FINANCIAL</a>
-                    <a href="#">FITNESS & HEALTH</a>
-                    <a href="#">MATH</a>
-                    <a href="#" class="active">OTHER</a>
-                </div>
+                <div class="sign-in"><a href="#">sign in</a></div>
+            </div>
+            <div class="nav-links">
+                <a href="#">FINANCIAL</a>
+                <a href="#">FITNESS & HEALTH</a>
+                <a href="#">MATH</a>
+                <a href="#" class="active">OTHER</a>
             </div>
         </div>
     </div>
@@ -214,23 +244,27 @@
                 <div class="panel-body">
                     <div class="form-row">
                         <label>Date of Birth</label>
-                        <select id="b-month">
-                            <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option>
-                            <option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option>
-                            <option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
-                        </select>
-                        <select id="b-day"></select>
-                        <input type="text" id="b-year" value="2000" size="5">
+                        <div style="display: flex; gap: 5px;">
+                            <select id="b-month">
+                                <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option>
+                                <option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option>
+                                <option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
+                            </select>
+                            <select id="b-day"></select>
+                            <input type="text" id="b-year" value="2000" size="5">
+                        </div>
                     </div>
                     <div class="form-row">
                         <label>Age at the Date of</label>
-                        <select id="t-month">
-                            <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option>
-                            <option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option>
-                            <option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
-                        </select>
-                        <select id="t-day"></select>
-                        <input type="text" id="t-year" size="5">
+                        <div style="display: flex; gap: 5px;">
+                            <select id="t-month">
+                                <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option><option value="3">Apr</option>
+                                <option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option>
+                                <option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option>
+                            </select>
+                            <select id="t-day"></select>
+                            <input type="text" id="t-year" size="5">
+                        </div>
                     </div>
                     <button class="calc-btn" onclick="calculateExactAge()">Calculate ▶</button>
                 </div>
@@ -287,7 +321,7 @@
     </div>
 
     <div class="site-footer">
-        <a href="#">about us</a> | <a href="#">sitemap</a> | <a href="#">terms of use</a> | <a href="#">privacy policy</a> &nbsp; © 2008 - 2024 calculator.net<br><br>
+        <a href="#">about us</a> | <a href="#">sitemap</a> | <a href="#">terms of use</a> | <a href="#">privacy policy</a> &nbsp; © 2008 - 2026 calculator.net<br><br>
         <a href="#">Financial</a> | <a href="#">Fitness & Health</a> | <a href="#">Math</a> | <a href="#">Other</a>
     </div>
 
@@ -296,7 +330,6 @@
         const MONTH_NAMES_FULL = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const DAY_NAMES_SHORT = ["S", "M", "T", "W", "Th", "F", "Sat"];
 
-        // Populate days (1-31) in dropdowns
         let bDayHtml = '', tDayHtml = '';
         for(let i=1; i<=31; i++) {
             bDayHtml += `<option value="${i}">${i}</option>`;
@@ -305,33 +338,28 @@
         document.getElementById('b-day').innerHTML = bDayHtml;
         document.getElementById('t-day').innerHTML = tDayHtml;
 
-        // Set Target Date to Today
         let today = new Date();
         document.getElementById('t-month').value = today.getMonth();
         document.getElementById('t-day').value = today.getDate();
         document.getElementById('t-year').value = today.getFullYear();
 
-        // Helper function for comma formatting
         function formatWithCommas(num) {
             return num.toLocaleString('en-IN');
         }
 
-        // Helper to generate a single calendar HTML
         function generateCalendarHTML(year, month, highlightDay) {
             const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0=Sun, 6=Sat
+            const firstDayOfMonth = new Date(year, month, 1).getDay();
 
             let htmlStr = `<div class="calendar-container">`;
             htmlStr += `<div class="calendar-title">${MONTH_NAMES_FULL[month]} ${year}</div>`;
             htmlStr += `<div class="calendar-grid-header">${DAY_NAMES_SHORT.join(' ')}</div>`;
             htmlStr += `<div class="calendar-grid">`;
 
-            // Fill empty cells before the 1st
             for (let i = 0; i < firstDayOfMonth; i++) {
                 htmlStr += `<div class="calendar-cell"></div>`;
             }
 
-            // Fill the dates
             for (let i = 1; i <= daysInMonth; i++) {
                 let cellClass = (i === highlightDay) ? 'calendar-cell highlight' : 'calendar-cell';
                 htmlStr += `<div class="${cellClass}">${i}</div>`;
@@ -342,7 +370,6 @@
         }
 
         function calculateExactAge() {
-            // Get values from form
             let bMonth = parseInt(document.getElementById('b-month').value);
             let bDay = parseInt(document.getElementById('b-day').value);
             let bYear = parseInt(document.getElementById('b-year').value);
@@ -351,24 +378,20 @@
             let tDay = parseInt(document.getElementById('t-day').value);
             let tYear = parseInt(document.getElementById('t-year').value);
 
-            // Hide old form and show result structure
             document.getElementById('calc-panel-id').style.display = 'none';
             document.getElementById('result-area').style.display = 'block';
             let breakdownDiv = document.getElementById('age-breakdown-list');
             let calendarDisplayDiv = document.getElementById('calendar-display');
 
-            // Construct dates for calculation
             let dob = new Date(bYear, bMonth, bDay);
             let target = new Date(tYear, tMonth, tDay);
 
-            // Handle invalid date range
             if (target < dob) {
                 breakdownDiv.innerHTML = "<span style='color:red;'>Target date must be after Date of Birth!</span>";
-                calendarDisplayDiv.innerHTML = ""; // Clear calendars
+                calendarDisplayDiv.innerHTML = "";
                 return;
             }
 
-            // --- Comprehensive Age Breakdown ---
             let years = target.getFullYear() - dob.getFullYear();
             let months = target.getMonth() - dob.getMonth();
             let days = target.getDate() - dob.getDate();
@@ -383,7 +406,6 @@
                 months += 12;
             }
 
-            // Total time breakdown
             let totalDifferenceMs = target - dob;
             let totalSeconds = Math.floor(totalDifferenceMs / 1000);
             let totalMinutes = Math.floor(totalDifferenceMs / (1000 * 60));
@@ -391,9 +413,8 @@
             let totalDays = Math.floor(totalDifferenceMs / (1000 * 60 * 60 * 24));
             let totalWeeks = Math.floor(totalDays / 7);
             let remainingDaysForWeeks = totalDays % 7;
-            let totalMonths = years * 12 + months; // Also months calculated from years/months breakdown
+            let totalMonths = years * 12 + months;
 
-            // Construct the final text result in the exact format
             let resultHtml = `<b>Age:</b><br>`;
             resultHtml += `${years} years ${months} months ${days} days<br>`;
             resultHtml += `or ${formatWithCommas(totalMonths)} months ${days} days<br>`;
@@ -405,10 +426,9 @@
 
             breakdownDiv.innerHTML = resultHtml;
 
-            // --- Dynamic Calendars Comparison ---
             let calendarsHtml = "";
-            calendarsHtml += generateCalendarHTML(bYear, bMonth, -1); // Birth Month, no highlight
-            calendarsHtml += generateCalendarHTML(tYear, tMonth, tDay); // Target Month, highlight target day
+            calendarsHtml += generateCalendarHTML(bYear, bMonth, -1);
+            calendarsHtml += generateCalendarHTML(tYear, tMonth, tDay);
 
             calendarDisplayDiv.innerHTML = calendarsHtml;
         }
